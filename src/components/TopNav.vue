@@ -1,11 +1,11 @@
 <template>
 <div class="topNav">
-    <img src="https://cdn.discordapp.com/avatars/853467383813636097/b32a0d060e7f2152e5413b3f34ab9bff.png?size=1024" alt="Discord Profile picture">
+    <p class="topNav-left">Chinono</p>
     <ul>
         <li><a class="active" href="#home"><span class="navText-active">Home</span></a></li>
         <li><a href="#about"><span class="navText">About</span></a></li>
         <li><a href="#Projects"><span class="navText">Projects</span></a></li>
-        <li><a href="Discord"><span class="navText">Discord</span></a></li>
+        <li><a href="#Discord"><span class="navText">Discord</span></a></li>
         <li><a style="padding-right: 45px;" href="#github"><span class="navText">Github</span></a></li>
     </ul>
 </div>
@@ -18,6 +18,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
+    box-shadow: 0px 15px 30px 10px rgba(0,0,0,0.5);
 }
 
 ul {
@@ -31,12 +33,12 @@ li {
     left: 1em;
 }
 
-img {
-    border-radius: 20px;
-    width: 40px;
-    height: 40px;
-    margin: 0 30px;
-    background: #080808;
+.topNav-left {
+    margin: 0 25px;
+    font-size: 30px;
+    color: #f857a8;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 650;
 }
 
 a {
