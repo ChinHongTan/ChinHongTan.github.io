@@ -1,11 +1,22 @@
 <template>
 <div class="topNav">
-    <p class="topNav-left">Chinono</p>
+    <div class="left">
+        <div class="pfp">
+            <img src="https://cdn.discordapp.com/avatars/947796554499100702/656cf05e9ea378da0a9b728aa21a69ed.webp?size=128" alt="logo">
+        </div>
+        <div class="left-text">
+            <div class="name">
+                <span>Chinono</span>
+            </div>
+            <div class="motto">
+                <p>Jeez, lolis are the best!</p>
+            </div>
+        </div>
+    </div>
     <ul>
-        <li><a class="active" href="#home"><span class="navText-active">Home</span></a></li>
+        <li class="active"><a href="#home"><span class="navText active">Home</span></a></li>
         <li><a href="#about"><span class="navText">About</span></a></li>
         <li><a href="#Projects"><span class="navText">Projects</span></a></li>
-        <li><a href="#Discord"><span class="navText">Discord</span></a></li>
         <li><a style="padding-right: 45px;" href="#github"><span class="navText">Github</span></a></li>
     </ul>
 </div>
@@ -13,7 +24,7 @@
 
 <style>
 .topNav {
-    background-color: #1e1e1e;
+    background-color: #fff;
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -24,6 +35,7 @@
 
 ul {
     list-style-type: none;
+    margin: 0px;
 }
 
 li {
@@ -33,37 +45,69 @@ li {
     left: 1em;
 }
 
-.topNav-left {
-    margin: 0 25px;
+li a {
+    display: block;
+    padding: 28.5px 20px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(45deg, #f857a8, #ff5858);
+    transform: skew(-20deg);
+    padding-left: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;
+    right: 20px;
+}
+
+.left-text {
+    flex-direction: column;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 10px;
+    padding-top: 15px;
+}
+
+.pfp img {
+    transform: skew(20deg);
+    border-radius: 50%;
+    width: 50px;
+}
+
+.name {
     font-size: 30px;
-    color: #f857a8;
+    color: #fff;
     font-family: 'Roboto', sans-serif;
     font-weight: 650;
+    transform: skew(20deg);
+    text-indent: -20px;
 }
 
-a {
-    text-transform: uppercase;
-    text-align: center;
+.motto {
+    transform: skew(20deg);
     font-size: 15px;
-    font-family: "Saira Semi Condensed", sans-serif;
-    font-weight: 700;
-    padding: 18px 20px;
-}
-
-.active {
-    background: linear-gradient(45deg, #f857a8, #ff5858);
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
 }
 
 .navText {
     display: inline-block;
     color: #f857a8;
     transform: skew(20deg);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Saira Semi Condensed", sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-.navText-active {
-    display: inline-block;
+.active {
+    background: linear-gradient(45deg, #f857a8, #ff5858);
     color: #ffffff;
-    transform: skew(20deg);
 }
 
 a:link { text-decoration: none; }
@@ -77,7 +121,7 @@ a:hover { text-decoration: none; }
 
 a:active { text-decoration: none; }
 
-li a:hover:not(.active) {
+li:hover:not(.active) {
     background: #e7e7e7;
 }
 
