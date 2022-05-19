@@ -1,6 +1,7 @@
 <script>
 import TopNav from './components/TopNav.vue'
 import AboutMe from './components/AboutMe.vue'
+import About from './components/About.vue'
 
 export default {
     name: 'App',
@@ -11,9 +12,10 @@ export default {
     methods: {
     },
     components: {
-        TopNav,
-        AboutMe
-    }
+    TopNav,
+    AboutMe,
+    About
+}
 }
 </script>
 
@@ -21,6 +23,7 @@ export default {
 <div id="app">
     <TopNav />
     <AboutMe />
+    <About />
 </div>
 </template>
 
