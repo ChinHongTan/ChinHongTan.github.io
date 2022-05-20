@@ -2,6 +2,7 @@
 import TopNav from './components/TopNav.vue'
 import AboutMe from './components/AboutMe.vue'
 import About from './components/About.vue'
+import Projects from './components/Projects.vue'
 
 export default {
     name: 'App',
@@ -14,7 +15,8 @@ export default {
     components: {
     TopNav,
     AboutMe,
-    About
+    About,
+    Projects
 }
 }
 </script>
@@ -24,6 +26,7 @@ export default {
     <TopNav />
     <AboutMe />
     <About />
+    <Projects />
 </div>
 </template>
 
