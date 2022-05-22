@@ -3,6 +3,7 @@ import TopNav from './components/TopNav.vue'
 import AboutMe from './components/AboutMe.vue'
 import About from './components/About.vue'
 import Projects from './components/Projects.vue'
+import Friends from './components/Friends.vue'
 
 export default {
     name: 'App',
@@ -16,7 +17,8 @@ export default {
         TopNav,
         AboutMe,
         About,
-        Projects
+        Projects,
+        Friends,
     }
 }
 </script>
@@ -27,6 +29,7 @@ export default {
     <AboutMe />
     <About />
     <Projects />
+    <Friends />
 </div>
 </template>
 
