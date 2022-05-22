@@ -13,11 +13,11 @@ export default {
     methods: {
     },
     components: {
-    TopNav,
-    AboutMe,
-    About,
-    Projects
-}
+        TopNav,
+        AboutMe,
+        About,
+        Projects
+    }
 }
 </script>
 
