@@ -34,6 +34,8 @@ export default {
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Cantora One');
+
 body {
     margin: 0;
     overflow-x: hidden;

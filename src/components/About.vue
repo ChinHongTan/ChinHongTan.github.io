@@ -41,15 +41,14 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Cantora One');
-
 .about {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background-color: #e5e5e5;
 }
 
 .about-content {
@@ -64,10 +63,11 @@
 
 .about-content h1 {
     font-size: 55px;
+    line-height: normal;
+    margin-bottom: auto;
 }
 
 .about-image {
-    margin-top: auto;
     margin-left: 15%;
     margin-right: 4%;
 }
@@ -78,7 +78,7 @@
     font-weight: 400;
     text-align: center;
 
-    margin-top: auto;
+    margin: auto;
 }
 
 .about-image img {
