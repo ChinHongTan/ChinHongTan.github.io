@@ -123,5 +123,4 @@
 .mini-apple-img {
     margin-right: 5%;
 }
-
 </style>
