@@ -2,10 +2,7 @@
     <div class="mainContent">
         <div class="myInfo">
             <div class="myInfo-img">
-                <img
-                    src="https://cdn.discordapp.com/avatars/947796554499100702/656cf05e9ea378da0a9b728aa21a69ed.webp?size=1024"
-                    alt=""
-                />
+                <img src="../assets/avatar_big.jpg" alt="" />
             </div>
             <div class="myInfo-text">
                 <h1>Chinono</h1>
@@ -63,14 +60,24 @@
 
 .myInfo-text {
     letter-spacing: 2px;
-    font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
+    font-family:
+        open sans,
+        helvetica neue,
+        Helvetica,
+        Arial,
+        sans-serif;
     font-size: 25px;
     line-height: 1px;
 }
 
 .myInfo-additional {
     letter-spacing: 3px;
-    font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
+    font-family:
+        open sans,
+        helvetica neue,
+        Helvetica,
+        Arial,
+        sans-serif;
     font-size: 15px;
     display: flex;
     flex-direction: column;

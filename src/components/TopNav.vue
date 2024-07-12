@@ -3,7 +3,7 @@
         <div class="left">
             <div class="pfp">
                 <img
-                    src="https://cdn.discordapp.com/avatars/947796554499100702/656cf05e9ea378da0a9b728aa21a69ed.webp?size=128"
+                    src="../assets/avatar_small.jpeg"
                     alt="logo"
                 />
             </div>
@@ -43,13 +43,13 @@
     flex-direction: row;
     justify-content: space-between;
     position: relative;
-    box-shadow: 0px 15px 30px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 30px 10px rgba(0, 0, 0, 0.5);
 }
 
 ul {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 li {
