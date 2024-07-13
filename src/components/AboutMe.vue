@@ -9,7 +9,7 @@
       </div>
       <div class="myInfo-additional">
         <div class="additional-info-sentence">
-          <span>蘿莉愛好者</span>
+          <span>Jeez, lolis are the best!</span>
         </div>
         <div class="additional-info-location">
           <span>Malaysia</span>

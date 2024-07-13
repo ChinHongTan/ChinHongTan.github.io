@@ -1,6 +1,6 @@
 <template>
   <div class="topNav">
-    <div class="left">
+    <div class="navLeft">
       <div class="pfp">
         <img src="../assets/avatar_small.jpeg" alt="logo" />
       </div>
@@ -8,25 +8,20 @@
         <div class="name">
           <span>Chinono</span>
         </div>
-        <div class="motto">
-          <p>Jeez, lolis are the best!</p>
-        </div>
       </div>
     </div>
-    <ul>
+    <ul class="navRight">
       <li class="active">
         <a href="#home"><span class="navText active">Home</span></a>
       </li>
-      <li>
+      <li class="navAbout">
         <a href="#about"><span class="navText">About</span></a>
       </li>
-      <li>
+      <li class="navProjects">
         <a href="#Projects"><span class="navText">Projects</span></a>
       </li>
-      <li>
-        <a style="padding-right: 45px" href="#github"
-          ><span class="navText">Github</span></a
-        >
+      <li class="navGithub">
+        <a href="#github"><span class="navText">Github</span></a>
       </li>
     </ul>
   </div>
@@ -34,43 +29,60 @@
 
 <style>
 .topNav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   background-color: #fff;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  position: relative;
   box-shadow: 0 15px 30px 10px rgba(0, 0, 0, 0.5);
+  height: 55px;
 }
 
-ul {
+.navRight {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-
-li {
-  position: relative;
-  display: inline-block;
-  transform: skew(-20deg);
-  left: 1em;
-}
-
-li a {
-  display: block;
-  padding: 28.5px 20px;
-}
-
-.left {
   display: flex;
   align-items: center;
+  height: 100%;
+}
+
+.navRight > li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: skew(-20deg);
+  height: 100%;
+  left: 20px;
+}
+
+.navRight > li:last-child {
+  padding-right: 20px;
+}
+
+.navRight > li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   background: linear-gradient(45deg, #f857a8, #ff5858);
   transform: skew(-20deg);
-  padding-left: 40px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-left: 30px;
   position: relative;
-  right: 20px;
+  right: 10px;
 }
 
 .left-text {
@@ -79,13 +91,12 @@ li a {
   padding-left: 10px;
   padding-right: 10px;
   line-height: 10px;
-  padding-top: 15px;
 }
 
 .pfp img {
   transform: skew(20deg);
   border-radius: 50%;
-  width: 50px;
+  width: 40px;
 }
 
 .name {
@@ -95,13 +106,7 @@ li a {
   font-weight: 650;
   transform: skew(20deg);
   text-indent: -20px;
-}
-
-.motto {
-  transform: skew(20deg);
-  font-size: 15px;
-  color: #fff;
-  font-family: "Roboto", sans-serif;
+  padding-left: 20px;
 }
 
 .navText {
