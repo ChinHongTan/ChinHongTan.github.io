@@ -1,76 +1,69 @@
 <template>
   <div class="friends">
-    <div class="friends-intro">
-      <h1>Friends</h1>
+    <div class="friends-card">
+      <div class="friends-intro">
+        <h1>Friends</h1>
 
-      <p>
-        This are some of my best friends who gave me a lot of support. Without
-        them, I won’t be able to learn and enjoy coding so much. I truely
-        appreaciate them.
-      </p>
-    </div>
-    <div class="friends-content">
-      <div class="naozumi">
-        <div class="naozumi-img">
-          <img src="../assets/naozumi_avatar.jpeg" alt="Naozumi's avatar" />
-        </div>
-        <div class="naozumi-content">
-          <h2>Naozumi</h2>
-
-          <p>
-            My very very very good friend from Hong Kong who helped me sooo much
-            in programming and AI. He is always willing to help, and he is
-            always there when I'm down, giving me support. I am very grateful to
-            have him as my friend.
-          </p>
-        </div>
+        <p>
+          This are some of my best friends who gave me a lot of support. Without
+          them, I won’t be able to learn and enjoy coding so much. I truely
+          appreaciate them.
+        </p>
       </div>
+      <div class="friends-content">
+        <div class="friend-card naozumi">
+          <div class="naozumi-img">
+            <img src="../assets/naozumi_avatar.jpeg" alt="Naozumi's avatar" />
+          </div>
+          <div class="naozumi-content">
+            <h2>Naozumi</h2>
 
-      <div class="tommy">
-        <div class="tommy-img">
-          <img src="../assets/tommy_avatar.jpeg" alt="Tommy's avatar" />
+            <p>
+              My very very very good friend from Hong Kong who helped me sooo
+              much in programming and AI. He is always willing to help, and he
+              is always there when I'm down, giving me support. I am very
+              grateful to have him as my friend.
+            </p>
+          </div>
         </div>
-        <div class="tommy-content">
-          <h2>Tommy</h2>
-          <p>My friend from Taiwan!</p>
-          <p>
-            Accompanied me during my learning journey in coding. He will not
-            just dump a lot of programming knowledge on me, but discuss with me,
-            helped me and made sure that I understood fully. He is a truly
-            amazing teacher.
-          </p>
-          <p>
-            Math and programming PRO. Ask him just about any math problem, and
-            worry not, he will happily find all the answers. He might has the
-            best math skills among all my friends.
-          </p>
-        </div>
-      </div>
 
-      <div class="shewi">
-        <div class="shewi-img">
-          <img src="../assets/shewi_avatar.jpeg" alt="Mini Apple's avatar" />
+        <div class="friend-card tommy">
+          <div class="tommy-img">
+            <img src="../assets/tommy_avatar.jpeg" alt="Tommy's avatar" />
+          </div>
+          <div class="tommy-content">
+            <h2>Tommy</h2>
+            <p>My friend from Taiwan!</p>
+            <p>
+              Accompanied me during my learning journey in coding. He will not
+              just dump a lot of programming knowledge on me, but discuss with
+              me, helped me and made sure that I understood fully. He is a truly
+              amazing teacher.
+            </p>
+            <p>
+              Math and programming PRO. Ask him just about any math problem, and
+              worry not, he will happily find all the answers. He might has the
+              best math skills among all my friends.
+            </p>
+          </div>
         </div>
-        <div class="mini-apple-content">
-          <h2>Shewi</h2>
 
-          <p>
-            My friend from French, Suky chan~! He knows a lot about IEMs, and I
-            mean <b>A LOT</b>. Got any questions? IEM recommendation? EQ? Audio
-            equipment? Just ask Shewi. He is like a literal encyclopedia when it
-            comes to audio equipments, a true master audiophile. He is the one
-            who introduced me down the rabbit hole of IEMs. And he is cute. Just
-            look at his profile picture. I am not writing an entire article
-            simping on him, so yeah just accept he is cute.
-          </p>
-          <p>
-            btw Shewi doesn't sleep. He stayed up all night, and even has a song
-            for this. Go have a listen!
-          </p>
-          <a
-            href="https://soundcloud.com/dankidz/shewi-need-sleep/s-q2p2idvN41K?si=d312d440f269427cbeb2e6a6d6eef60b&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-            >Link here
-          </a>
+        <div class="friend-card shewi">
+          <div class="shewi-img">
+            <img src="../assets/shewi_avatar.jpeg" alt="Mini Apple's avatar" />
+          </div>
+          <div class="mini-apple-content">
+            <h2>Shewi</h2>
+
+            <p>
+              My friend from French, Suky chan~! He knows a lot about IEMs, and
+              I mean <b>A LOT</b>. Got any questions? IEM recommendation? EQ?
+              Audio equipment? Just ask Shewi. He is like a literal encyclopedia
+              when it comes to audio equipments, a true master audiophile. He is
+              the one who introduced me down the rabbit hole of IEMs. And he is
+              cute! Suky chan is very cute!
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +72,16 @@
 
 <style>
 .friends {
-  background-color: #e5e5e5;
+  background: linear-gradient(45deg, #fff0f5 0%, #f6deff 50%, #bdc9fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friends-card {
+  width: 90%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,8 +91,11 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  padding-left: 15%;
-  padding-right: 15%;
+  border-radius: 30px;
+  background-color: var(--lighter-pink);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
 }
 
 .friends-intro {
@@ -118,48 +123,78 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .friends-content > div {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding-left: 7%;
+  padding-right: 7%;
+  margin: 15px;
+  min-height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .friends-content h2 {
-  margin: 10px 0;
-}
-
-.friends-content > div:not(:last-child) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 35px;
 }
 
 .friends-content p {
   margin: auto;
 }
 
+.friend-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+}
+
+.naozumi::before {
+  background-color: #7e94fb; /* Light blue for Naozumi */
+}
+
+.tommy::before {
+  background-color: #ff9d20; /* Light orange for Tommy */
+}
+
+.shewi::before {
+  background-color: #9771ff; /* Light lavender for Shewi */
+}
+
 .naozumi {
+  background: linear-gradient(135deg, #e6f0ff 0%, #f0e6ff 100%);
 }
 
 .naozumi-img {
-  margin-right: 5%;
+  margin-right: 7%;
 }
 
 .tommy {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffffd6 100%);
 }
 
 .tommy-img {
-  margin-right: 5%;
+  margin-right: 7%;
 }
 
 .shewi {
+  background: linear-gradient(135deg, #f3e6ff 0%, #ffe6f0 100%);
 }
 
 .shewi-img {
-  margin-right: 5%;
+  margin-right: 7%;
 }
 </style>
 <script setup lang="ts"></script>

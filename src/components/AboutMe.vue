@@ -16,26 +16,35 @@
         </div>
       </div>
     </div>
+    <div class="gradient-overlay"></div>
   </div>
 </template>
 
 <style>
 .mainContent {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 600px;
-  max-height: 800px;
+  margin-top: 55px;
+  min-height: 100vh;
+  max-height: 1500px;
   background-position: bottom, center;
   background-repeat: no-repeat;
   background-size: auto, cover;
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.55) 25%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0) 100%
+    ),
     url("../assets/81274446_p0.jpg");
 }
 
 .myInfo {
-  margin-bottom: 5%;
+  margin-bottom: 7%;
   color: #fff;
   text-align: center;
 }
@@ -79,5 +88,19 @@
   align-self: center;
   margin-top: 7px;
   display: inline-block;
+}
+
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    var(--secondary-color)
+  );
+  z-index: 2;
 }
 </style>

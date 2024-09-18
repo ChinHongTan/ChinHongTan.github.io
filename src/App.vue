@@ -4,6 +4,8 @@ import AboutMe from "./components/AboutMe.vue";
 import About from "./components/About.vue";
 import Projects from "./components/Projects.vue";
 import Friends from "./components/Friends.vue";
+import ContactSection from "@/components/ContactSection.vue";
+import "./assets/base.css";
 
 export default {
   name: "App",
@@ -17,6 +19,7 @@ export default {
     About,
     Projects,
     Friends,
+    ContactSection,
   },
 };
 </script>
@@ -28,6 +31,7 @@ export default {
     <About />
     <Projects />
     <Friends />
+    <ContactSection />
   </div>
 </template>
 
@@ -37,5 +41,6 @@ export default {
 body {
   margin: 0;
   overflow-x: hidden;
+  background-color: var(--primary-color);
 }
 </style>

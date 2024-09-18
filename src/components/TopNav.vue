@@ -33,13 +33,15 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #fff;
+  background-color: var(--secondary-color-80-transparent);
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   box-shadow: 0 15px 30px 10px rgba(0, 0, 0, 0.5);
   height: 55px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .navRight {
@@ -81,6 +83,7 @@
   background: linear-gradient(45deg, #f857a8, #ff5858);
   transform: skew(-20deg);
   padding-left: 30px;
+  padding-right: 30px;
   position: relative;
   right: 10px;
 }
