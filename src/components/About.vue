@@ -2,13 +2,53 @@
   <div class="about">
     <div class="about-card">
       <div class="about-image">
-        <img src="../assets/avatar_big.jpg" alt="" />
-        <p>About Me</p>
+        <div
+          v-motion
+          :initial="{ opacity: 0, scale: 0.8 }"
+          :visible="{
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 1000, delay: 100 },
+          }"
+          class="about-image-container"
+        >
+          <img alt="" src="../assets/avatar_big.jpg" />
+          <div class="rotating-border"></div>
+        </div>
+        <p
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 200 },
+          }"
+        >
+          About Me
+        </p>
       </div>
       <div class="about-content">
-        <h1>Hi there!</h1>
+        <h1
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 100 },
+          }"
+        >
+          Hi there!
+        </h1>
 
-        <p>
+        <p
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 150 },
+          }"
+        >
           My name is Chinono, or in Mandarin 智乃乃. I am a big fan of Chino
           Kafuu! Currently 17 years old, and studying as a high school student
           in Malaysia. I can communicate in both Mandarin and English. Sure I
@@ -19,7 +59,15 @@
           than before.
         </p>
 
-        <p>
+        <p
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 200 },
+          }"
+        >
           Coding is one of my greatest hobby, and I enjoy doing it everyday.
           Currently, I can only code in JavaScript and Python, though I set my
           target to reach an intermediate level of JavaScript and Python, and
@@ -27,7 +75,15 @@
           XD)
         </p>
 
-        <p>
+        <p
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 250 },
+          }"
+        >
           Besides coding, I also love solving math problems and watching youtube
           videos like science experiments and documentaries. And just like other
           teens of my age, I enjoys anime very much, just because they are
@@ -35,12 +91,24 @@
           learn together, and support each other. I am really grateful to them.
         </p>
 
-        <p>Also, I am a boy, please.</p>
+        <p
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1000, delay: 300 },
+          }"
+        >
+          Also, I am a boy, please.
+        </p>
       </div>
       <div class="about-overlay"></div>
     </div>
   </div>
 </template>
+
+<script setup></script>
 
 <style>
 .about {
@@ -88,6 +156,48 @@
   margin-right: 4%;
 }
 
+.about-image-container {
+  position: relative;
+  width: 255px;
+  height: 255px;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.about-image-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  z-index: 2;
+  object-fit: cover;
+}
+
+.rotating-border {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82,
+    #f79533
+  );
+  background-size: 300% 300%;
+  animation: gradientRotate 4s linear infinite;
+  opacity: 1;
+  z-index: 1;
+}
+
 .about-image p {
   font-size: 55px;
   font-family: "Cantora One", sans-serif;
@@ -117,4 +227,4 @@
   z-index: 2;
 }
 </style>
-<script setup lang="ts"></script>
+<script lang="ts" setup></script>
