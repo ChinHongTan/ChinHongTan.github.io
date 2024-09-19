@@ -199,7 +199,7 @@ import { ref } from "vue";
 
 const email = "chinhongtan1@gmail.com";
 const githubProfile = "https://github.com/chinhongtan";
-const discordUsername = ".chinokafuu";
+const discordUsername = "chino_kafuu.";
 const telegramProfile = "https://t.me/chinhongtan";
 
 const showNotification = ref(false);
