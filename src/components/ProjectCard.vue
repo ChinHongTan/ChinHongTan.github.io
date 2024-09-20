@@ -1,6 +1,6 @@
 <!--suppress CssUnresolvedCustomProperty -->
 <template>
-  <div :style="cardStyle" class="project-card">
+  <div ref="cardRef" :style="cardStyle" class="project-card">
     <div :style="{ backgroundColor: languageColor }" class="accent-bar"></div>
     <div class="card-header">
       <h2>{{ project.name }}</h2>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
+import { gsap } from "gsap";
 import ContributorsIcon from "../assets/contributors.svg";
 import IssueOpenedIcon from "../assets/issue-opened.svg";
 import RepoForkedIcon from "../assets/repo-forked.svg";
@@ -69,6 +71,29 @@ export default {
       type: Object,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
+  },
+  setup(props) {
+    const cardRef = ref(null);
+
+    onMounted(() => {
+      gsap.from(cardRef.value, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        delay: props.index * 0.1, // Stagger effect
+        scrollTrigger: {
+          trigger: cardRef.value,
+          start: "top bottom-=10%",
+          toggleActions: "play none none none",
+        },
+      });
+    });
+
+    return { cardRef };
   },
   data() {
     return {

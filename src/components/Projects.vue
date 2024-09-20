@@ -1,7 +1,7 @@
 <template>
   <div id="projects" class="projects">
     <div class="content-wrapper">
-      <div class="intro-container">
+      <div ref="introRef" class="intro-container">
         <h1>Code Adventures!</h1>
         <p class="projects-intro">
           These are some of my projects published on GitHub. Any suggestions and
@@ -14,16 +14,119 @@
         Loading projects...
       </div>
       <div v-else-if="error" class="error">{{ error }}</div>
-      <div v-else class="project-cards">
+      <div v-else ref="projectCardsContainer" class="project-cards">
         <ProjectCard
-          v-for="project in projects"
+          v-for="(project, index) in projects"
           :key="project.name"
+          :index="index"
           :project="project"
         />
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { nextTick, onMounted, ref } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProjectCard from "./ProjectCard.vue";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default {
+  name: "Projects",
+  components: {
+    ProjectCard,
+  },
+  setup() {
+    const projects = ref([]);
+    const loading = ref(true);
+    const error = ref(null);
+    const introRef = ref(null);
+    const projectCardsContainer = ref(null);
+
+    const repositories = [
+      "ChinHongTan/ChinoKafuu",
+      "ChinHongTan/AgefansCrawler",
+      "Shewiiii/Ugoku-v2",
+      "ChinHongTan/Tetris-game-Vue",
+      "ChinHongTan/Ugoku-frontend",
+      "Naozumi520/Remedy",
+    ];
+
+    onMounted(() => {
+      fetchProjects();
+    });
+
+    async function fetchProjects() {
+      loading.value = true;
+      error.value = null;
+      try {
+        const projectPromises = repositories.map((repo) =>
+          fetch(`https://api.github.com/repos/${repo}`).then((res) =>
+            res.json()
+          )
+        );
+        const projectsData = await Promise.all(projectPromises);
+
+        projects.value = await Promise.all(
+          projectsData.map(async (data) => {
+            const contributorsResponse = await fetch(
+              `https://api.github.com/repos/${data.owner.login}/${data.name}/contributors`
+            );
+            const contributors = await contributorsResponse.json();
+
+            return {
+              name: data.name,
+              description: data.description,
+              language: data.language,
+              stars: data.stargazers_count,
+              forks: data.forks_count,
+              issues: data.open_issues_count,
+              contributors: contributors.length,
+              author: data.owner.login,
+              authorAvatar: data.owner.avatar_url,
+              repoUrl: data.html_url,
+            };
+          })
+        );
+
+        nextTick(() => setupAnimations());
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+        error.value = "Failed to load projects. Please try again later.";
+      } finally {
+        loading.value = false;
+      }
+    }
+
+    function setupAnimations() {
+      // Animate intro container
+      gsap.from(introRef.value, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: introRef.value,
+          start: "top bottom-=10%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
+
+    return {
+      projects,
+      loading,
+      error,
+      introRef,
+      projectCardsContainer,
+      fetchProjects,
+      setupAnimations,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .projects {
@@ -104,73 +207,3 @@ h1 {
   }
 }
 </style>
-
-<script>
-import ProjectCard from "./ProjectCard.vue";
-
-export default {
-  name: "Projects",
-  components: {
-    ProjectCard,
-  },
-  data() {
-    return {
-      projects: [],
-      repositories: [
-        "ChinHongTan/ChinoKafuu",
-        "ChinHongTan/AgefansCrawler",
-        "Shewiiii/Ugoku-v2",
-        "ChinHongTan/Tetris-game-Vue",
-        "ChinHongTan/Ugoku-frontend",
-        "Naozumi520/Remedy",
-      ],
-      loading: true,
-      error: null,
-    };
-  },
-  mounted() {
-    this.fetchProjects();
-  },
-  methods: {
-    async fetchProjects() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const projectPromises = this.repositories.map((repo) =>
-          fetch(`https://api.github.com/repos/${repo}`).then((res) =>
-            res.json()
-          )
-        );
-        const projectsData = await Promise.all(projectPromises);
-
-        this.projects = await Promise.all(
-          projectsData.map(async (data) => {
-            const contributorsResponse = await fetch(
-              `https://api.github.com/repos/${data.owner.login}/${data.name}/contributors`
-            );
-            const contributors = await contributorsResponse.json();
-
-            return {
-              name: data.name,
-              description: data.description,
-              language: data.language,
-              stars: data.stargazers_count,
-              forks: data.forks_count,
-              issues: data.open_issues_count,
-              contributors: contributors.length,
-              author: data.owner.login,
-              authorAvatar: data.owner.avatar_url,
-              repoUrl: data.html_url,
-            };
-          })
-        );
-      } catch (error) {
-        console.error("Error fetching project data:", error);
-        this.error = "Failed to load projects. Please try again later.";
-      } finally {
-        this.loading = false;
-      }
-    },
-  },
-};
-</script>

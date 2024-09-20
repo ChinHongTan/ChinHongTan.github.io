@@ -1,22 +1,22 @@
 <template>
   <div id="contacts" class="contact-section">
-    <h1>Contact Me</h1>
+    <h1 ref="titleRef">Contact Me</h1>
     <div class="contact-cards">
-      <div class="card email" @click="openEmail">
+      <div ref="emailRef" class="card email" @click="openEmail">
         <div class="logo-container logo-mail">
           <img alt="Github Logo" src="../assets/mail-mark-white.svg" />
         </div>
         <h2>Email</h2>
         <p>chinhongtan1@gmail.com</p>
       </div>
-      <div class="card github" @click="openGithub">
+      <div ref="githubRef" class="card github" @click="openGithub">
         <div class="logo-container logo-github">
           <img alt="Github Logo" src="../assets/github-mark-white.svg" />
         </div>
         <h2>GitHub</h2>
         <p>github.com/chinhongtan</p>
       </div>
-      <div class="card discord" @click="openDiscord">
+      <div ref="discordRef" class="card discord" @click="openDiscord">
         <div class="logo-container logo-discord">
           <img alt="Discord Logo" src="../assets/discord-mark-white.svg" />
         </div>
@@ -31,7 +31,7 @@
           Username copied!
         </div>
       </div>
-      <div class="card telegram" @click="openTelegram">
+      <div ref="telegramRef" class="card telegram" @click="openTelegram">
         <div class="logo-container logo-telegram">
           <img alt="Github Logo" src="../assets/telegram-mark-blue.svg" />
         </div>
@@ -110,11 +110,9 @@ h1 {
   position: relative;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
   opacity: 0.9;
 }
 
@@ -196,7 +194,11 @@ p {
 </style>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const email = "chinhongtan1@gmail.com";
 const githubProfile = "https://github.com/chinhongtan";
@@ -204,6 +206,60 @@ const discordUsername = "chino_kafuu.";
 const telegramProfile = "https://t.me/chinhongtan";
 
 const showNotification = ref(false);
+const titleRef = ref(null);
+const emailRef = ref(null);
+const githubRef = ref(null);
+const discordRef = ref(null);
+const telegramRef = ref(null);
+
+onMounted(() => {
+  setupAnimations();
+});
+
+function setupAnimations() {
+  // Title animation
+  gsap.from(titleRef.value, {
+    opacity: 0,
+    y: -50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: titleRef.value,
+      start: "top bottom-=10%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  // Cards animation
+  const cards = [
+    emailRef.value,
+    githubRef.value,
+    discordRef.value,
+    telegramRef.value,
+  ];
+  cards.forEach((card, index) => {
+    gsap.from(card, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: card,
+        start: "top bottom-=10%",
+        toggleActions: "play none none none",
+      },
+      delay: index * 0.2, // Stagger effect
+    });
+  });
+
+  // Hover animations
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      gsap.to(card, { scale: 1.05, duration: 0.3 });
+    });
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, { scale: 1, duration: 0.3 });
+    });
+  });
+}
 
 function openEmail() {
   window.open(`mailto:${email}`);
@@ -216,8 +272,12 @@ function openGithub() {
 async function openDiscord() {
   await navigator.clipboard.writeText(discordUsername);
   showNotification.value = true;
+  gsap.to(".notification-message", { opacity: 1, duration: 0.3 });
+  gsap.to(".card-content", { opacity: 0, duration: 0.3 });
   setTimeout(() => {
     showNotification.value = false;
+    gsap.to(".notification-message", { opacity: 0, duration: 0.3 });
+    gsap.to(".card-content", { opacity: 1, duration: 0.3 });
   }, 1000);
 }
 

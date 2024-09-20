@@ -1,17 +1,17 @@
 <template>
   <div id="friends" class="friends">
     <div class="friends-card">
-      <div class="friends-intro">
+      <div ref="introRef" class="friends-intro">
         <h1>Friends</h1>
 
         <p>
-          This are some of my best friends who gave me a lot of support. Without
-          them, I won’t be able to learn and enjoy coding so much. I truely
-          appreaciate them.
+          These are some of my best friends who gave me a lot of support.
+          Without them, I won't be able to learn and enjoy coding so much. I
+          truly appreciate them.
         </p>
       </div>
       <div class="friends-content">
-        <div class="friend-card naozumi">
+        <div ref="naozumiRef" class="friend-card naozumi">
           <div class="naozumi-img">
             <img alt="Naozumi's avatar" src="../assets/naozumi_avatar.jpeg" />
           </div>
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <div class="friend-card tommy">
+        <div ref="tommyRef" class="friend-card tommy">
           <div class="tommy-img">
             <img alt="Tommy's avatar" src="../assets/tommy_avatar.jpeg" />
           </div>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="friend-card shewi">
+        <div ref="shewiRef" class="friend-card shewi">
           <div class="shewi-img">
             <img alt="Mini Apple's avatar" src="../assets/shewi_avatar.jpeg" />
           </div>
@@ -69,6 +69,53 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { onMounted, ref } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const introRef = ref(null);
+const naozumiRef = ref(null);
+const tommyRef = ref(null);
+const shewiRef = ref(null);
+
+onMounted(() => {
+  setupAnimations();
+});
+
+function setupAnimations() {
+  // Animate intro
+  gsap.from(introRef.value, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: introRef.value,
+      start: "top bottom-=10%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  // Animate friend cards
+  const friendCards = [naozumiRef.value, tommyRef.value, shewiRef.value];
+  friendCards.forEach((card, index) => {
+    gsap.from(card, {
+      opacity: 0,
+      x: index % 2 === 0 ? -50 : 50, // Alternate left and right
+      duration: 1,
+      scrollTrigger: {
+        trigger: card,
+        start: "top bottom-=10%",
+        toggleActions: "play none none none",
+      },
+      delay: index * 0.2, // Stagger effect
+    });
+  });
+}
+</script>
 
 <style>
 .friends {
@@ -197,4 +244,3 @@
   margin-right: 7%;
 }
 </style>
-<script lang="ts" setup></script>

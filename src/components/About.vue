@@ -2,72 +2,27 @@
   <div id="about" ref="aboutRef" class="about">
     <div class="about-card">
       <div class="about-image">
-        <div
-          v-motion
-          :initial="{ opacity: 0, scale: 0.8 }"
-          :visible="{
-            opacity: 1,
-            scale: 1,
-            transition: { duration: 1000, delay: 100 },
-          }"
-          class="about-image-container"
-        >
+        <div class="about-image-container">
           <img alt="" src="../assets/avatar_big.jpg" />
-          <div :style="rotatingBorderStyle" class="rotating-border-about"></div>
+          <div ref="rotatingBorderRef" class="rotating-border-about"></div>
         </div>
-        <p
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
-          About Me
-        </p>
+        <p>About Me</p>
       </div>
       <div class="about-content">
-        <h1
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
-          Hi there!
-        </h1>
+        <h1>Hi there!</h1>
 
-        <p
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
+        <p>
           My name is Chinono, or in Mandarin 智乃乃. I am a big fan of Chino
           Kafuu! Currently 17 years old, and studying as a high school student
           in Malaysia. I can communicate in both Mandarin and English. Sure I
           can speak Malay, but English is preferred. As the covid 19 outbreak is
           especially serious in my country, I remain study at home around a year
-          in total. Although I can’t leave my home due to the lockdown issued by
+          in total. Although I can't leave my home due to the lockdown issued by
           the government, I am able to develop my coding hobby with more time
           than before.
         </p>
 
-        <p
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
+        <p>
           Coding is one of my greatest hobby, and I enjoy doing it everyday.
           Currently, I can only code in JavaScript and Python, though I set my
           target to reach an intermediate level of JavaScript and Python, and
@@ -75,15 +30,7 @@
           XD)
         </p>
 
-        <p
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
+        <p>
           Besides coding, I also love solving math problems and watching youtube
           videos like science experiments and documentaries. And just like other
           teens of my age, I enjoys anime very much, just because they are
@@ -91,17 +38,7 @@
           learn together, and support each other. I am really grateful to them.
         </p>
 
-        <p
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible="{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1000, delay: 100 },
-          }"
-        >
-          Also, I am a boy, please.
-        </p>
+        <p>Also, I am a boy, please.</p>
       </div>
       <div class="about-overlay"></div>
     </div>
@@ -109,43 +46,74 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { useIntersectionObserver, useRafFn } from "@vueuse/core";
+import { onMounted, ref } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const gradientPosition = ref(0);
+gsap.registerPlugin(ScrollTrigger);
+
 const aboutRef = ref(null);
+const rotatingBorderRef = ref(null);
 
-const rotatingBorderStyle = computed(() => ({
-  background: `linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82,
-    #f79533
-  )`,
-  backgroundSize: "1000% 100%",
-  backgroundPosition: `${gradientPosition.value}% 50%`,
-}));
-
-const { pause, resume } = useRafFn(
-  () => {
-    gradientPosition.value = gradientPosition.value + 0.5;
-  },
-  { immediate: true }
-);
-
-useIntersectionObserver(aboutRef, ([{ isIntersecting }]) => {
-  if (isIntersecting) {
-    resume();
-  } else {
-    pause();
-  }
+onMounted(() => {
+  setupAnimations();
+  animateRotatingBorder();
 });
+
+function setupAnimations() {
+  // Image container animation
+  gsap.from(".about-image-container", {
+    opacity: 0,
+    scale: 0.8,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".about-image-container",
+      start: "top bottom-=10%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  // "About Me" text animation
+  gsap.from(".about-image p", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".about-image p",
+      start: "top bottom-=10%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  // Content animations
+  gsap.utils.toArray(".about-content > *").forEach((element, index) => {
+    gsap.from(element, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: element,
+        start: "top bottom-=10%",
+        toggleActions: "play none none none",
+      },
+      delay: index * 0.1, // Stagger effect
+    });
+  });
+}
+
+function animateRotatingBorder() {
+  gsap.to(rotatingBorderRef.value, {
+    backgroundPosition: "1000% 50%",
+    duration: 30,
+    ease: "none",
+    repeat: -1,
+    scrollTrigger: {
+      trigger: ".about-image-container",
+      start: "top bottom-=10%",
+      toggleActions: "play pause resume pause",
+    },
+  });
+}
 </script>
 
 <style>
@@ -220,6 +188,19 @@ useIntersectionObserver(aboutRef, ([{ isIntersecting }]) => {
   border-radius: 50%;
   opacity: 1;
   z-index: 1;
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82,
+    #f79533
+  );
+  background-size: 1000% 100%;
 }
 
 .about-image p {
@@ -227,7 +208,6 @@ useIntersectionObserver(aboutRef, ([{ isIntersecting }]) => {
   font-family: "Cantora One", sans-serif;
   font-weight: 400;
   text-align: center;
-
   margin: auto;
 }
 
