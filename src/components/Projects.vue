@@ -1,22 +1,26 @@
 <template>
-  <div class="projects">
-    <h1>Code Adventures!</h1>
-    <p class="projects-intro">
-      These are some of my projects published on GitHub. Any suggestions and
-      contributions to any of them are welcomed. I really appreciate it if you
-      are willing to star them, or follow my GitHub.
-    </p>
-    <div v-if="loading" class="loading">
-      <div class="spinner"></div>
-      Loading projects...
-    </div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else class="project-cards">
-      <ProjectCard
-        v-for="project in projects"
-        :key="project.name"
-        :project="project"
-      />
+  <div id="projects" class="projects">
+    <div class="content-wrapper">
+      <div class="intro-container">
+        <h1>Code Adventures!</h1>
+        <p class="projects-intro">
+          These are some of my projects published on GitHub. Any suggestions and
+          contributions to any of them are welcomed. I really appreciate it if
+          you are willing to star them, or follow my GitHub.
+        </p>
+      </div>
+      <div v-if="loading" class="loading">
+        <div class="spinner"></div>
+        Loading projects...
+      </div>
+      <div v-else-if="error" class="error">{{ error }}</div>
+      <div v-else class="project-cards">
+        <ProjectCard
+          v-for="project in projects"
+          :key="project.name"
+          :project="project"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +30,21 @@
   padding: 40px 20px;
   background: linear-gradient(135deg, #fff0f5 0%, #f6deff 50%, #bdc9fc 100%);
   min-height: 100vh;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.intro-container {
+  background: var(--lighter-pink);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -39,8 +58,8 @@ h1 {
 .projects-intro {
   text-align: center;
   font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  max-width: 800px;
   margin: 0 auto 40px;
+  max-width: 800px;
   color: #555;
   font-size: 1.1em;
   line-height: 1.6;

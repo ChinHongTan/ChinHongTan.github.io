@@ -1,39 +1,39 @@
 <template>
-  <div class="contact-section">
+  <div id="contacts" class="contact-section">
     <h1>Contact Me</h1>
     <div class="contact-cards">
       <div class="card email" @click="openEmail">
         <div class="logo-container logo-mail">
-          <img src="../assets/mail-mark-white.svg" alt="Github Logo" />
+          <img alt="Github Logo" src="../assets/mail-mark-white.svg" />
         </div>
         <h2>Email</h2>
         <p>chinhongtan1@gmail.com</p>
       </div>
       <div class="card github" @click="openGithub">
         <div class="logo-container logo-github">
-          <img src="../assets/github-mark-white.svg" alt="Github Logo" />
+          <img alt="Github Logo" src="../assets/github-mark-white.svg" />
         </div>
         <h2>GitHub</h2>
         <p>github.com/chinhongtan</p>
       </div>
       <div class="card discord" @click="openDiscord">
         <div class="logo-container logo-discord">
-          <img src="../assets/discord-mark-white.svg" alt="Discord Logo" />
+          <img alt="Discord Logo" src="../assets/discord-mark-white.svg" />
         </div>
-        <div class="card-content" :class="{ 'fade-out': showNotification }">
+        <div :class="{ 'fade-out': showNotification }" class="card-content">
           <h2>Discord</h2>
           <p>.chinokafuu</p>
         </div>
         <div
-          class="notification-message"
           :class="{ 'fade-in': showNotification }"
+          class="notification-message"
         >
           Username copied!
         </div>
       </div>
       <div class="card telegram" @click="openTelegram">
         <div class="logo-container logo-telegram">
-          <img src="../assets/telegram-mark-blue.svg" alt="Github Logo" />
+          <img alt="Github Logo" src="../assets/telegram-mark-blue.svg" />
         </div>
         <h2>Telegram</h2>
         <p>chinhongtan.t.me</p>
@@ -44,7 +44,8 @@
 
 <style scoped>
 .contact-section {
-  padding: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
   background: linear-gradient(135deg, #fff0f5 0%, #f6deff 50%, #bdc9fc 100%);
 }
 

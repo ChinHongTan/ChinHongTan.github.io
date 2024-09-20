@@ -5,6 +5,7 @@ import About from "./components/About.vue";
 import Projects from "./components/Projects.vue";
 import Friends from "./components/Friends.vue";
 import ContactSection from "@/components/ContactSection.vue";
+import Footer from "@/components/Footer.vue";
 import "./assets/base.css";
 
 export default {
@@ -20,6 +21,7 @@ export default {
     Projects,
     Friends,
     ContactSection,
+    Footer,
   },
 };
 </script>
@@ -32,6 +34,7 @@ export default {
     <Projects />
     <Friends />
     <ContactSection />
+    <Footer />
   </div>
 </template>
 

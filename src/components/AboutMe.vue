@@ -1,8 +1,8 @@
 <template>
-  <div class="mainContent">
+  <div id="home" ref="elementRef" class="mainContent">
     <div class="myInfo">
       <div class="myInfo-img">
-        <div class="rotating-border"></div>
+        <div :style="rotatingBorderStyle" class="rotating-border"></div>
         <img alt="" src="../assets/avatar_big.jpg" />
       </div>
       <div class="myInfo-text">
@@ -21,64 +21,96 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      sentences: [
-        "Jeez, lolis are the best!",
-        "Chino is the best girl in the world!!",
-        "I am NOT Chinono Intellegence!!!",
-        "Please, I am a boy!",
-      ],
-      currentSentence: 0,
-      currentChar: 0,
-      isDeleting: false,
-      typewriterElement: null,
-    };
+<script setup>
+import { computed, onMounted, ref } from "vue";
+import { useIntersectionObserver, useRafFn } from "@vueuse/core";
+
+const sentences = [
+  "Jeez, lolis are the best!",
+  "Chino is the best girl in the world!!",
+  "I am NOT Chinono Intellegence!!!",
+  "Please, I am a boy!",
+];
+
+const currentSentence = ref(0);
+const currentChar = ref(0);
+const isDeleting = ref(false);
+let typewriterElement = ref(null);
+
+const gradientPosition = ref(0);
+const elementRef = ref(null);
+
+const rotatingBorderStyle = computed(() => ({
+  background: `linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82,
+    #f79533
+  )`,
+  backgroundSize: "1000% 100%",
+  backgroundPosition: `${gradientPosition.value}% 50%`,
+}));
+
+function typeWriter() {
+  const currentText = sentences[currentSentence.value];
+
+  if (isDeleting.value) {
+    typewriterElement.value.textContent = currentText.substring(
+      0,
+      currentChar.value - 1
+    );
+    currentChar.value--;
+  } else {
+    typewriterElement.value.textContent = currentText.substring(
+      0,
+      currentChar.value + 1
+    );
+    currentChar.value++;
+  }
+
+  let typingSpeed = 100;
+
+  if (isDeleting.value) {
+    typingSpeed /= 2;
+  }
+
+  if (!isDeleting.value && currentChar.value === currentText.length) {
+    typingSpeed = 2000; // Pause at the end
+    isDeleting.value = true;
+  } else if (isDeleting.value && currentChar.value === 0) {
+    isDeleting.value = false;
+    currentSentence.value = (currentSentence.value + 1) % sentences.length;
+    typingSpeed = 500; // Pause before starting new sentence
+  }
+
+  setTimeout(() => typeWriter(), typingSpeed);
+}
+
+const { pause, resume } = useRafFn(
+  () => {
+    gradientPosition.value = gradientPosition.value + 0.5;
   },
-  mounted() {
-    this.typewriterElement = document.getElementById("typewriter");
-    this.typeWriter();
-  },
-  methods: {
-    typeWriter() {
-      const currentText = this.sentences[this.currentSentence];
+  { immediate: true }
+);
 
-      if (this.isDeleting) {
-        this.typewriterElement.textContent = currentText.substring(
-          0,
-          this.currentChar - 1
-        );
-        this.currentChar--;
-      } else {
-        this.typewriterElement.textContent = currentText.substring(
-          0,
-          this.currentChar + 1
-        );
-        this.currentChar++;
-      }
+useIntersectionObserver(elementRef, ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    resume();
+  } else {
+    pause();
+  }
+});
 
-      let typingSpeed = 100;
-
-      if (this.isDeleting) {
-        typingSpeed /= 2;
-      }
-
-      if (!this.isDeleting && this.currentChar === currentText.length) {
-        typingSpeed = 2000; // Pause at the end
-        this.isDeleting = true;
-      } else if (this.isDeleting && this.currentChar === 0) {
-        this.isDeleting = false;
-        this.currentSentence =
-          (this.currentSentence + 1) % this.sentences.length;
-        typingSpeed = 500; // Pause before starting new sentence
-      }
-
-      setTimeout(() => this.typeWriter(), typingSpeed);
-    },
-  },
-};
+onMounted(() => {
+  typewriterElement.value = document.getElementById("typewriter");
+  typeWriter();
+});
 </script>
 
 <style>
@@ -178,36 +210,10 @@ export default {
   position: absolute;
   inset: -10px;
   border-radius: 50%;
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82,
-    #f79533
-  );
-  background-size: 300% 300%;
-  animation: gradientRotate 4s linear infinite;
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 1;
   will-change: transform;
-}
-
-@keyframes gradientRotate {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 .myInfo-img:hover .rotating-border {

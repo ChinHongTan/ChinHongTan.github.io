@@ -1,5 +1,5 @@
 <template>
-  <div class="friends">
+  <div id="friends" class="friends">
     <div class="friends-card">
       <div class="friends-intro">
         <h1>Friends</h1>
@@ -13,7 +13,7 @@
       <div class="friends-content">
         <div class="friend-card naozumi">
           <div class="naozumi-img">
-            <img src="../assets/naozumi_avatar.jpeg" alt="Naozumi's avatar" />
+            <img alt="Naozumi's avatar" src="../assets/naozumi_avatar.jpeg" />
           </div>
           <div class="naozumi-content">
             <h2>Naozumi</h2>
@@ -29,7 +29,7 @@
 
         <div class="friend-card tommy">
           <div class="tommy-img">
-            <img src="../assets/tommy_avatar.jpeg" alt="Tommy's avatar" />
+            <img alt="Tommy's avatar" src="../assets/tommy_avatar.jpeg" />
           </div>
           <div class="tommy-content">
             <h2>Tommy</h2>
@@ -50,7 +50,7 @@
 
         <div class="friend-card shewi">
           <div class="shewi-img">
-            <img src="../assets/shewi_avatar.jpeg" alt="Mini Apple's avatar" />
+            <img alt="Mini Apple's avatar" src="../assets/shewi_avatar.jpeg" />
           </div>
           <div class="mini-apple-content">
             <h2>Shewi</h2>
@@ -197,4 +197,4 @@
   margin-right: 7%;
 }
 </style>
-<script setup lang="ts"></script>
+<script lang="ts" setup></script>

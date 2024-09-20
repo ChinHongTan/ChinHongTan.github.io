@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="about" ref="aboutRef" class="about">
     <div class="about-card">
       <div class="about-image">
         <div
@@ -13,7 +13,7 @@
           class="about-image-container"
         >
           <img alt="" src="../assets/avatar_big.jpg" />
-          <div class="rotating-border"></div>
+          <div :style="rotatingBorderStyle" class="rotating-border-about"></div>
         </div>
         <p
           v-motion
@@ -21,7 +21,7 @@
           :visible="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1000, delay: 200 },
+            transition: { duration: 1000, delay: 100 },
           }"
         >
           About Me
@@ -46,7 +46,7 @@
           :visible="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1000, delay: 150 },
+            transition: { duration: 1000, delay: 100 },
           }"
         >
           My name is Chinono, or in Mandarin 智乃乃. I am a big fan of Chino
@@ -65,7 +65,7 @@
           :visible="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1000, delay: 200 },
+            transition: { duration: 1000, delay: 100 },
           }"
         >
           Coding is one of my greatest hobby, and I enjoy doing it everyday.
@@ -81,7 +81,7 @@
           :visible="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1000, delay: 250 },
+            transition: { duration: 1000, delay: 100 },
           }"
         >
           Besides coding, I also love solving math problems and watching youtube
@@ -97,7 +97,7 @@
           :visible="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1000, delay: 300 },
+            transition: { duration: 1000, delay: 100 },
           }"
         >
           Also, I am a boy, please.
@@ -108,7 +108,45 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { computed, ref } from "vue";
+import { useIntersectionObserver, useRafFn } from "@vueuse/core";
+
+const gradientPosition = ref(0);
+const aboutRef = ref(null);
+
+const rotatingBorderStyle = computed(() => ({
+  background: `linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82,
+    #f79533
+  )`,
+  backgroundSize: "1000% 100%",
+  backgroundPosition: `${gradientPosition.value}% 50%`,
+}));
+
+const { pause, resume } = useRafFn(
+  () => {
+    gradientPosition.value = gradientPosition.value + 0.5;
+  },
+  { immediate: true }
+);
+
+useIntersectionObserver(aboutRef, ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    resume();
+  } else {
+    pause();
+  }
+});
+</script>
 
 <style>
 .about {
@@ -176,24 +214,10 @@
   object-fit: cover;
 }
 
-.rotating-border {
+.rotating-border-about {
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82,
-    #f79533
-  );
-  background-size: 300% 300%;
-  animation: gradientRotate 4s linear infinite;
   opacity: 1;
   z-index: 1;
 }
@@ -227,4 +251,3 @@
   z-index: 2;
 }
 </style>
-<script lang="ts" setup></script>
