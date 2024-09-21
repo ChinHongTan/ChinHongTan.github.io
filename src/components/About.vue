@@ -9,36 +9,59 @@
         <p>About Me</p>
       </div>
       <div class="about-content">
-        <h1>Hi there!</h1>
-
+        <h1>Moshi moshi, Chinono desu!</h1>
         <p>
-          My name is Chinono, or in Mandarin 智乃乃. I am a big fan of Chino
-          Kafuu! Currently 17 years old, and studying as a high school student
-          in Malaysia. I can communicate in both Mandarin and English. Sure I
-          can speak Malay, but English is preferred. As the covid 19 outbreak is
-          especially serious in my country, I remain study at home around a year
-          in total. Although I can't leave my home due to the lockdown issued by
-          the government, I am able to develop my coding hobby with more time
-          than before.
+          A 20-year-old university student from Malaysia, and a huge fan of
+          Chino Kafuu! Currently studying Medicine at Universiti of Malaya (UM),
+          but I promise, my heart belongs to cute anime and tech!
         </p>
-
+        <h2>Quick Facts:</h2>
+        <ul>
+          <li>
+            Languages: English, Malay, Chinese, Japanese (still learning, but
+            we'll get there!)
+          </li>
+          <li>
+            Hobbies: Watching anime (especially anything with adorable
+            characters!), playing games, coding small projects, playing piano
+            and vibing to music.
+          </li>
+        </ul>
+        <h2>Favourites:</h2>
+        <ul>
+          <li>
+            Anime: Gochuumon wa Usagi Desu ka? (Super chill, wholesome and cute
+            anime!)
+          </li>
+          <li>
+            Character: Chino Kafuu (because, who doesn't love her cuteness?!)
+          </li>
+          <li>
+            Game: Genshin Impact (My fav character? Definitely Klee for her
+            cuteness overload!)
+          </li>
+          <li>Music: J-Pop, Lo-Fi (the perfect study vibe)</li>
+        </ul>
+        <h2>Education:</h2>
+        <ul>
+          <li>University: Universiti of Malaya (UM)</li>
+          <li>Course: Bachelor of Medicine, Bachelor of Surgery (MBBS)</li>
+        </ul>
         <p>
-          Coding is one of my greatest hobby, and I enjoy doing it everyday.
-          Currently, I can only code in JavaScript and Python, though I set my
-          target to reach an intermediate level of JavaScript and Python, and
-          aim for C++ next year. (except I didn't learn it even after 2 years
-          XD)
+          I'm a kawaii enthusiast with a passion for learning new things!
+          Currently, I'm on a journey of learning Japanese, so that someday, I
+          can visit Japan.
         </p>
-
         <p>
-          Besides coding, I also love solving math problems and watching youtube
-          videos like science experiments and documentaries. And just like other
-          teens of my age, I enjoys anime very much, just because they are
-          cuteeeee &lt;3 I am very fortunate to have a group of friends. We
-          learn together, and support each other. I am really grateful to them.
+          When I'm not studying medicine, you can find me coding for fun,
+          solving math problems, or diving into science documentaries. I believe
+          in the power of friendship and am super grateful to my awesome group
+          of friends who are always down for learning adventures together!
         </p>
-
-        <p>Also, I am a boy, please.</p>
+        <p class="fun-fact">
+          P.S. Just in case you were wondering, I'm a boy! But hey, boys can
+          love cute things too, right?
+        </p>
       </div>
       <div class="about-overlay"></div>
     </div>
@@ -116,7 +139,7 @@ function animateRotatingBorder() {
 }
 </script>
 
-<style>
+<style scoped>
 .about {
   padding-top: 30px;
   padding-bottom: 90px;
@@ -155,6 +178,21 @@ function animateRotatingBorder() {
   font-size: 55px;
   line-height: normal;
   margin-bottom: auto;
+}
+
+.about-content h2 {
+  color: #ff69b4;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.about-content ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.about-content li {
+  margin-bottom: 10px;
 }
 
 .about-image {
@@ -229,5 +267,13 @@ function animateRotatingBorder() {
     var(--primary-color-light)
   );
   z-index: 2;
+}
+
+.fun-fact {
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  border: 2px solid #add8e6;
 }
 </style>

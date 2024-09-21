@@ -117,7 +117,7 @@ function setupAnimations() {
 }
 </script>
 
-<style>
+<style scoped>
 .friends {
   background: linear-gradient(45deg, #fff0f5 0%, #f6deff 50%, #bdc9fc 100%);
   display: flex;

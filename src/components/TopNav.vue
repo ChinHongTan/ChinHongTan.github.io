@@ -142,7 +142,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .topNav {
   position: fixed;
   top: 0;
@@ -153,7 +153,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  box-shadow: 0 15px 30px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
   height: 55px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
