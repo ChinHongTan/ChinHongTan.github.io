@@ -124,11 +124,11 @@ function setupAnimations() {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
+  padding: 2rem 0.5rem;
 }
 
 .friends-card {
-  width: 100%;
+  width: 95%;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@ function setupAnimations() {
   border-radius: 30px;
   background-color: var(--lighter-pink);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  padding: 1rem;
   margin: 1rem 0;
 }
 
