@@ -119,8 +119,9 @@ onMounted(() => {
   position: relative;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 55px;
   min-height: 100vh;
   max-height: 100vh;
@@ -145,7 +146,6 @@ onMounted(() => {
 .myInfo {
   position: relative;
   z-index: 2;
-  margin-bottom: 10%;
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -297,10 +297,6 @@ onMounted(() => {
     align-items: center;
     min-height: 103vh;
     max-height: 1500px;
-  }
-
-  .myInfo {
-    margin-bottom: 7%;
   }
 
   .myInfo-img {
