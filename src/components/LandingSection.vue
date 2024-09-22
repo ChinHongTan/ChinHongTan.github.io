@@ -1,5 +1,6 @@
 <template>
   <div id="home" ref="elementRef" class="mainContent">
+    <div class="overlay"></div>
     <div class="myInfo">
       <div class="myInfo-img">
         <div :style="rotatingBorderStyle" class="rotating-border"></div>
@@ -121,30 +122,38 @@ onMounted(() => {
   justify-content: center;
   align-items: flex-end;
   margin-top: 55px;
-  min-height: 103vh;
-  max-height: 1500px;
-  background-position: bottom, center;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto, cover;
-  background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.55) 35%,
-      rgba(0, 0, 0, 0) 65%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    url("../assets/81274446_p0.jpg");
+  background-size: cover;
+  background-image: url("../assets/81274446_p0.jpg");
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1;
 }
 
 .myInfo {
-  margin-bottom: 7%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 10%;
   color: #fff;
   text-align: center;
+  padding: 1rem;
 }
 
 .myInfo-img {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -167,9 +176,10 @@ onMounted(() => {
 
 .myInfo-text {
   letter-spacing: 2px;
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  font-size: 30px;
-  line-height: 1px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 1rem 0;
   transition: all 0.3s ease;
 }
 
@@ -180,9 +190,9 @@ onMounted(() => {
 }
 
 .myInfo-additional {
-  letter-spacing: 3px;
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  font-size: 17px;
+  letter-spacing: 2px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
@@ -206,6 +216,11 @@ onMounted(() => {
   }
 }
 
+.myInfo-text,
+.myInfo-additional {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .rotating-border {
   position: absolute;
   inset: -10px;
@@ -222,15 +237,22 @@ onMounted(() => {
 }
 
 .additional-info-location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.additional-info-location::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
   background-image: url("../assets/location.svg");
   background-repeat: no-repeat;
-  background-size: 15px 15px;
+  background-size: contain;
   filter: brightness(0) invert(1);
-  padding-left: 20px;
-  padding-bottom: 5px;
-  align-self: center;
-  margin-top: 7px;
-  display: inline-block;
+  margin-right: 5px;
 }
 
 .additional-info-sentence {
@@ -239,10 +261,10 @@ onMounted(() => {
 }
 
 #typewriter {
-  border-right: 0.15em solid #fff; /* Cursor effect */
+  border-right: 0.15em solid #fff;
   white-space: nowrap;
   margin: 0 auto;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
   animation: blink-caret 0.75s step-end infinite;
 }
 
@@ -267,6 +289,44 @@ onMounted(() => {
     rgba(0, 0, 0, 0),
     var(--secondary-color)
   );
-  z-index: 2;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .mainContent {
+    align-items: center;
+    min-height: 103vh;
+    max-height: 1500px;
+  }
+
+  .myInfo {
+    margin-bottom: 7%;
+  }
+
+  .myInfo-img {
+    width: 170px;
+    height: 170px;
+  }
+
+  .myInfo-text {
+    font-size: 30px;
+    line-height: 1px;
+  }
+
+  .myInfo-additional {
+    font-size: 17px;
+    letter-spacing: 3px;
+  }
+
+  .additional-info-location {
+    background-size: 15px 15px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    margin-top: 7px;
+  }
+
+  #typewriter {
+    letter-spacing: 5px;
+  }
 }
 </style>

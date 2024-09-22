@@ -23,16 +23,15 @@
               src="../assets/github-mark-white.svg"
             />
           </a>
-          <a
-            href="https://discord.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+          <a href="#" @click.prevent="copyDiscordUsername">
             <img
               alt="Discord"
               class="social-icon"
               src="../assets/discord-mark-white.svg"
             />
+            <span :class="{ 'show-tooltip': showTooltip }" class="tooltip"
+              >Username copied!</span
+            >
           </a>
           <a
             href="https://t.me/chinhongtan"
@@ -125,6 +124,19 @@ import personIcon from "../assets/person.svg";
 import codeIcon from "../assets/code.svg";
 import groupIcon from "../assets/group.svg";
 import emailIcon from "../assets/mail.svg";
+import { ref } from "vue";
+
+const showTooltip = ref(false);
+const discordUsername = "chino_kafuu.";
+
+function copyDiscordUsername() {
+  navigator.clipboard.writeText(discordUsername).then(() => {
+    showTooltip.value = true;
+    setTimeout(() => {
+      showTooltip.value = false;
+    }, 1000);
+  });
+}
 </script>
 
 <style scoped>
@@ -180,6 +192,31 @@ import emailIcon from "../assets/mail.svg";
 .social-links {
   display: flex;
   gap: 15px;
+}
+
+.social-links a {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.show-tooltip {
+  opacity: 1;
 }
 
 .social-icon {

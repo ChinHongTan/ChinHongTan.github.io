@@ -124,25 +124,25 @@ function setupAnimations() {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 2rem 1rem;
 }
 
 .friends-card {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-style: normal;
   font-family: "Cantora One", sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1rem;
+  line-height: 1.5;
   border-radius: 30px;
   background-color: var(--lighter-pink);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px;
+  padding: 1.5rem;
+  margin: 1rem 0;
 }
 
 .friends-intro {
@@ -152,51 +152,53 @@ function setupAnimations() {
   justify-content: space-between;
   width: 100%;
   max-width: 800px;
+  text-align: center;
 }
 
 .friends-intro h1 {
-  font-size: 55px;
-  line-height: normal;
-  margin-bottom: auto;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .friends-content img {
-  width: 125px;
-  height: 125px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  border: 3px solid;
 }
 
 .friends-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-.friends-content > div {
+.friend-card {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-left: 7%;
-  padding-right: 7%;
-  margin: 15px;
-  min-height: 200px;
+  padding: 1.5rem;
+  margin: 1rem 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .friends-content h2 {
-  margin-top: 10px;
-  margin-bottom: 30px;
-  font-size: 35px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 .friends-content p {
-  margin: auto;
+  margin: 0.5rem 0;
 }
 
 .friend-card::before {
@@ -205,7 +207,7 @@ function setupAnimations() {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 30px;
+  width: 10px;
 }
 
 .naozumi::before {
@@ -224,23 +226,58 @@ function setupAnimations() {
   background: linear-gradient(135deg, #e6f0ff 0%, #f0e6ff 100%);
 }
 
-.naozumi-img {
-  margin-right: 7%;
-}
-
 .tommy {
   background: linear-gradient(135deg, #fff5e6 0%, #ffffd6 100%);
-}
-
-.tommy-img {
-  margin-right: 7%;
 }
 
 .shewi {
   background: linear-gradient(135deg, #f3e6ff 0%, #ffe6f0 100%);
 }
 
+.naozumi-img,
+.tommy-img,
 .shewi-img {
-  margin-right: 7%;
+  margin-bottom: 1rem;
+}
+
+.naozumi-img img {
+  border-color: #7e94fb;
+}
+
+.tommy-img img {
+  border-color: #ff9d20;
+}
+
+.shewi-img img {
+  border-color: #9771ff;
+}
+
+@media (min-width: 768px) {
+  .friend-card {
+    flex-direction: row;
+    text-align: left;
+    padding: 2rem;
+  }
+
+  .friends-content img {
+    width: 125px;
+    height: 125px;
+  }
+
+  .naozumi-img,
+  .tommy-img,
+  .shewi-img {
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 0;
+  }
+
+  .friends-content h2 {
+    text-align: left;
+  }
+
+  .friend-card::before {
+    width: 30px;
+  }
 }
 </style>

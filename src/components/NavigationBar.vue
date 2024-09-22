@@ -1,5 +1,5 @@
 <template>
-  <div class="topNav">
+  <div :class="{ 'menu-open': isMenuOpen }" class="topNav">
     <div class="navLeft">
       <div class="pfp">
         <img alt="logo" src="../assets/avatar_small.jpeg" />
@@ -20,21 +20,38 @@
           }
         "
         :class="{ active: activeSection === section }"
-        @click="updateSliderPosition"
+        @click="selectSection(section)"
       >
-        <a :href="`#${section}`"
-          ><span class="navText">{{ section }}</span></a
-        >
+        <a :href="`#${section}`">
+          <span class="navText">{{ section }}</span>
+        </a>
       </li>
       <div :style="sliderStyle" class="slider"></div>
     </ul>
+    <div class="hamburger" @click.stop="toggleMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
+  <MobileMenu
+    v-if="isMobile"
+    :active-section="activeSection"
+    :is-open="isMenuOpen"
+    :sections="sections"
+    @close="closeMenu"
+    @select-section="selectSection"
+  />
 </template>
 
 <script>
 import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import MobileMenu from "./MobileMenu.vue";
 
 export default {
+  components: {
+    MobileMenu,
+  },
   setup() {
     const sections = ["home", "about", "projects", "friends", "contacts"];
     const activeSection = ref("home");
@@ -42,6 +59,7 @@ export default {
     const observers = [];
     const navRightRef = ref(null);
     const navItemRefs = reactive({});
+    const isMenuOpen = ref(false);
 
     const sliderStyle = ref({
       transform: "translateX(0px) skew(-20deg)",
@@ -100,25 +118,44 @@ export default {
       observers.push(observer);
     };
 
-    const forceUpdateRefs = () => {
-      nextTick(() => {
-        sections.forEach((section) => {
-          if (navItemRefs[section]) {
-            navItemRefs[section] = { ...navItemRefs[section] };
-          }
-        });
-        updateSliderPosition();
-      });
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value;
+      if (isMenuOpen.value) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    };
+
+    const closeMenu = () => {
+      isMenuOpen.value = false;
+      document.body.style.overflow = "";
+    };
+
+    const selectSection = (section) => {
+      activeSection.value = section;
+      closeMenu();
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    const isMobile = ref(false);
+
+    const checkMobile = () => {
+      isMobile.value = window.innerWidth <= 768;
     };
 
     onMounted(() => {
       sections.forEach(observeSection);
       nextTick(() => {
-        forceUpdateRefs();
+        updateSliderPosition();
       });
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
     });
 
-    // Watch for changes in activeSection
     watch(activeSection, (newSection, oldSection) => {
       console.log(`Active section changed from ${oldSection} to ${newSection}`);
       nextTick(() => {
@@ -128,6 +165,7 @@ export default {
 
     onUnmounted(() => {
       observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener("resize", checkMobile);
     });
 
     return {
@@ -137,6 +175,11 @@ export default {
       navRightRef,
       navItemRefs,
       updateSliderPosition,
+      isMenuOpen,
+      toggleMenu,
+      closeMenu,
+      selectSection,
+      isMobile,
     };
   },
 };
@@ -219,10 +262,6 @@ export default {
   padding: 0 20px;
 }
 
-.navRight > li.active {
-  background: none;
-}
-
 .navLeft {
   display: flex;
   align-items: center;
@@ -273,23 +312,67 @@ export default {
   transition: color 0.3s ease;
 }
 
-a:link {
-  text-decoration: none;
-}
-
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
+a:link,
+a:visited,
+a:hover,
 a:active {
   text-decoration: none;
 }
 
 li:hover:not(.active) {
   background: rgba(0, 0, 0, 0.1);
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .topNav {
+    background: linear-gradient(45deg, #f857a8, #ff5858);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+  }
+
+  .navRight {
+    display: none;
+  }
+
+  .navLeft {
+    transform: none;
+    background: none;
+  }
+
+  .name,
+  .pfp img {
+    transform: none;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002;
+    margin-right: 20px;
+  }
+
+  .hamburger span {
+    width: 30px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
 }
 </style>

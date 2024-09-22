@@ -141,8 +141,7 @@ function animateRotatingBorder() {
 
 <style scoped>
 .about {
-  padding-top: 30px;
-  padding-bottom: 90px;
+  padding: 2rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,7 +151,7 @@ function animateRotatingBorder() {
 
 .about-card {
   width: 90%;
-  height: 90%;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -160,50 +159,49 @@ function animateRotatingBorder() {
   border-radius: 30px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-color: var(--lighter-pink);
-  padding: 20px;
-  margin: 20px;
+  padding: 2rem;
+  margin: 1rem;
 }
 
 .about-content {
-  margin-right: 7%;
-  margin-left: 2%;
+  flex: 1;
   font-style: normal;
   font-family: "Cantora One", sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .about-content h1 {
-  font-size: 55px;
-  line-height: normal;
-  margin-bottom: auto;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .about-content h2 {
   color: #ff69b4;
-  margin-top: 20px;
-  font-size: 24px;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .about-content ul {
   list-style-type: disc;
-  padding-left: 20px;
+  padding-left: 1.5rem;
 }
 
 .about-content li {
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .about-image {
-  margin-left: 7%;
-  margin-right: 4%;
+  flex-shrink: 0;
+  margin-right: 2rem;
 }
 
 .about-image-container {
   position: relative;
-  width: 255px;
-  height: 255px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: visible;
 }
@@ -213,8 +211,8 @@ function animateRotatingBorder() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   z-index: 2;
   object-fit: cover;
@@ -242,17 +240,11 @@ function animateRotatingBorder() {
 }
 
 .about-image p {
-  font-size: 55px;
+  font-size: 2rem;
   font-family: "Cantora One", sans-serif;
   font-weight: 400;
   text-align: center;
-  margin: auto;
-}
-
-.about-image img {
-  width: 250px;
-  height: auto;
-  border-radius: 50%;
+  margin: 1rem 0;
 }
 
 .about-overlay {
@@ -272,8 +264,41 @@ function animateRotatingBorder() {
 .fun-fact {
   background-color: #f0f8ff;
   border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 1rem;
+  margin-top: 1.5rem;
   border: 2px solid #add8e6;
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .about-image {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .about-content {
+    font-size: 0.9rem;
+  }
+
+  .about-content h1 {
+    font-size: 2rem;
+  }
+
+  .about-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .about-image-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .about-image p {
+    font-size: 1.5rem;
+  }
 }
 </style>

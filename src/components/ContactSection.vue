@@ -22,7 +22,7 @@
         </div>
         <div :class="{ 'fade-out': showNotification }" class="card-content">
           <h2>Discord</h2>
-          <p>.chinokafuu</p>
+          <p>chino_kafuu.</p>
         </div>
         <div
           :class="{ 'fade-in': showNotification }"
@@ -44,8 +44,7 @@
 
 <style scoped>
 .contact-section {
-  padding-top: 2rem;
-  padding-bottom: 6rem;
+  padding: 2rem 1rem 6rem;
   background: linear-gradient(135deg, #fff0f5 0%, #f6deff 50%, #bdc9fc 100%);
 }
 
@@ -53,33 +52,103 @@ h1 {
   text-align: center;
   color: var(--text-dark);
   margin-bottom: 2rem;
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  font-size: 55px;
-  padding-bottom: 20px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
 }
 
 .contact-cards {
   display: grid;
-  grid-template-columns: 3fr 3fr;
-  grid-template-rows: auto auto;
-  gap: 2rem;
-  column-gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .logo-container {
   position: absolute;
-  left: -40px;
+  left: -30px;
   top: 50%;
   transform: translateY(-50%);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 5px;
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+}
+
+.logo-container img {
+  height: 35px;
+}
+
+.card {
+  background-color: var(--secondary-color);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.card:hover {
+  opacity: 0.9;
+}
+
+.card-content,
+.notification-message {
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  width: calc(100% - 4rem);
+  left: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.card-content {
+  opacity: 1;
+}
+
+.card-content.fade-out {
+  opacity: 0;
+}
+
+.notification-message {
+  font-size: 1rem;
+  font-weight: 550;
+  text-wrap: auto;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  opacity: 0;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.notification-message.fade-in {
+  opacity: 1;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-dark);
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
 }
 
 .logo-github {
@@ -98,98 +167,49 @@ h1 {
   background-color: #009eeb;
 }
 
-.logo-container img {
-  height: 45px;
-}
+@media (min-width: 768px) {
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
 
-.card {
-  background-color: var(--secondary-color);
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  position: relative;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+  h1 {
+    font-size: 3rem;
+  }
 
-.card:hover {
-  opacity: 0.9;
-}
+  .logo-container {
+    left: -40px;
+    height: 70px;
+    width: 70px;
+  }
 
-.card-content,
-.notification-message {
-  transition: opacity 0.3s ease-in-out;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
+  .logo-container img {
+    height: 45px;
+  }
 
-.notification-message {
-  top: 0;
-  left: 20px;
-  font-size: 30px;
-  font-weight: 550;
-  text-wrap: auto;
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-}
+  .card {
+    padding: 1.5rem 1.5rem 1.5rem 4rem;
+  }
 
-.card-content {
-  opacity: 1;
-}
+  .card-content,
+  .notification-message {
+    width: calc(100% - 5.5rem);
+    left: 4rem;
+  }
 
-.card-content.fade-out {
-  opacity: 0;
-}
+  h2 {
+    font-size: 1.5rem;
+  }
 
-.notification-message {
-  opacity: 0;
-  color: var(--primary-color);
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
-}
+  p {
+    font-size: 1rem;
+  }
 
-.notification-message.fade-in {
-  opacity: 1;
-}
-
-.email {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-
-.github {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-
-.discord {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-
-.telegram {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-
-h2 {
-  color: var(--primary-color);
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  padding-left: 60px;
-}
-
-p {
-  color: var(--text-dark);
-  font-family: open sans, helvetica neue, Helvetica, Arial, sans-serif;
-  padding-left: 60px;
-}
-
-.logo-container {
-  z-index: 2;
+  .notification-message {
+    font-size: 1.5rem;
+    justify-content: center;
+    text-align: center;
+  }
 }
 </style>
 

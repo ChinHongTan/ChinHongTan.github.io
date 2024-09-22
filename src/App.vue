@@ -1,9 +1,9 @@
 <script>
-import TopNav from "./components/TopNav.vue";
-import AboutMe from "./components/AboutMe.vue";
-import About from "./components/About.vue";
-import Projects from "./components/Projects.vue";
-import Friends from "./components/Friends.vue";
+import TopNav from "./components/NavigationBar.vue";
+import AboutMe from "./components/LandingSection.vue";
+import About from "./components/AboutMeSection.vue";
+import Projects from "./components/ProjectsSection.vue";
+import Friends from "./components/FriendsSection.vue";
 import ContactSection from "@/components/ContactSection.vue";
 import Footer from "@/components/Footer.vue";
 import "./assets/base.css";
