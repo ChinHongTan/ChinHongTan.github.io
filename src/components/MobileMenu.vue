@@ -53,7 +53,7 @@ export default {
         friends: "group.svg",
         contacts: "mail.svg",
       };
-      return require(`@/assets/${iconMap[section]}`);
+      return new URL(`../assets/${iconMap[section]}`, import.meta.url).href;
     };
 
     return {
