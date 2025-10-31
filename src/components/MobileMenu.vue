@@ -28,40 +28,46 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    isOpen: Boolean,
-    sections: Array,
-    activeSection: String,
+<script setup>
+import { computed } from "vue";
+
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
   },
-  emits: ["close", "selectSection"],
-  setup(props, { emit }) {
-    const closeMenu = () => {
-      emit("close");
-    };
-
-    const selectSection = (section) => {
-      emit("selectSection", section);
-    };
-
-    const getIconPath = (section) => {
-      const iconMap = {
-        home: "home.svg",
-        about: "person.svg",
-        projects: "code.svg",
-        friends: "group.svg",
-        contacts: "mail.svg",
-      };
-      return new URL(`../assets/${iconMap[section]}`, import.meta.url).href;
-    };
-
-    return {
-      closeMenu,
-      selectSection,
-      getIconPath,
-    };
+  sections: {
+    type: Array,
+    required: true,
+    validator: (value) => value.every((item) => typeof item === "string"),
   },
+  activeSection: {
+    type: String,
+    required: true,
+  },
+});
+
+const emit = defineEmits(["close", "selectSection"]);
+
+const closeMenu = () => {
+  emit("close");
+};
+
+const selectSection = (section) => {
+  emit("selectSection", section);
+};
+
+// Memoize icon paths for better performance
+const iconMap = {
+  home: "home.svg",
+  about: "person.svg",
+  projects: "code.svg",
+  friends: "group.svg",
+  contacts: "mail.svg",
+};
+
+const getIconPath = (section) => {
+  return new URL(`../assets/${iconMap[section]}`, import.meta.url).href;
 };
 </script>
 

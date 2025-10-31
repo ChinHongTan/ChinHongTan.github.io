@@ -48,13 +48,58 @@
   </div>
 </template>
 
-<script>
-import { onMounted, ref } from "vue";
-import { gsap } from "gsap";
+<script setup>
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useScrollAnimation } from "@/composables/useScrollAnimation";
 import ContributorsIcon from "../assets/contributors.svg";
 import IssueOpenedIcon from "../assets/issue-opened.svg";
 import RepoForkedIcon from "../assets/repo-forked.svg";
 import StarIcon from "../assets/star.svg";
+
+const props = defineProps({
+  project: {
+    type: Object,
+    required: true,
+    validator: (value) => {
+      return (
+        value.name &&
+        value.language &&
+        typeof value.stars === "number" &&
+        typeof value.forks === "number"
+      );
+    },
+  },
+  index: {
+    type: Number,
+    required: true,
+    validator: (value) => value >= 0,
+  },
+});
+
+const cardRef = ref(null);
+const { fadeInUp, cleanup } = useScrollAnimation();
+
+// Static data
+const statIcons = {
+  stars: StarIcon,
+  forks: RepoForkedIcon,
+  issues: IssueOpenedIcon,
+  contributors: ContributorsIcon,
+};
+
+const statUrls = {
+  stars: "stargazers",
+  forks: "network/members",
+  issues: "issues",
+  contributors: "graphs/contributors",
+};
+
+const statTitles = {
+  stars: "Stars",
+  forks: "Forks",
+  issues: "Issues",
+  contributors: "Contributors",
+};
 
 const languageColors = {
   JavaScript: { hex: "#f1e05a", rgb: "241, 224, 90" },
@@ -64,82 +109,37 @@ const languageColors = {
   Vue: { hex: "#41b883", rgb: "65, 184, 131" },
 };
 
-export default {
-  name: "ProjectCard",
-  props: {
-    project: {
-      type: Object,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-  },
-  setup(props) {
-    const cardRef = ref(null);
+// Computed properties
+const languageColor = computed(() => {
+  return languageColors[props.project.language]?.hex || "#858585";
+});
 
-    onMounted(() => {
-      gsap.from(cardRef.value, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        delay: props.index * 0.1, // Stagger effect
-        scrollTrigger: {
-          trigger: cardRef.value,
-          start: "top bottom-=10%",
-          toggleActions: "play none none none",
-        },
-      });
-    });
+const languageColorRGB = computed(() => {
+  return languageColors[props.project.language]?.rgb || "133, 133, 133";
+});
 
-    return { cardRef };
-  },
-  data() {
-    return {
-      StarIcon,
-      RepoForkedIcon,
-      IssueOpenedIcon,
-      ContributorsIcon,
+const cardStyle = computed(() => {
+  const isJavaScript = props.project.language === "JavaScript";
+  return {
+    "--lang-color": languageColor.value,
+    "--lang-color-rgb": languageColorRGB.value,
+    fontColour: isJavaScript ? "#333" : "#fff",
+    background: "var(--lighter-pink)",
+  };
+});
 
-      statIcons: {
-        stars: StarIcon,
-        forks: RepoForkedIcon,
-        issues: IssueOpenedIcon,
-        contributors: ContributorsIcon,
-      },
-      statUrls: {
-        stars: "stargazers",
-        forks: "network/members",
-        issues: "issues",
-        contributors: "graphs/contributors",
-      },
-      statTitles: {
-        stars: "Stars",
-        forks: "Forks",
-        issues: "Issues",
-        contributors: "Contributors",
-      },
-    };
-  },
-  computed: {
-    languageColor() {
-      return languageColors[this.project.language]?.hex || "#858585";
-    },
-    languageColorRGB() {
-      return languageColors[this.project.language]?.rgb || "133, 133, 133";
-    },
-    cardStyle() {
-      const isJavaScript = this.project.language === "JavaScript";
-      return {
-        "--lang-color": this.languageColor,
-        "--lang-color-rgb": this.languageColorRGB,
-        fontColour: isJavaScript ? "#333" : "#fff",
-        background: "var(--lighter-pink)",
-      };
-    },
-  },
-};
+onMounted(() => {
+  // Using composable for scroll animation
+  fadeInUp(cardRef.value, {
+    y: 50,
+    duration: 0.8,
+    delay: props.index * 0.1, // Stagger effect
+  });
+});
+
+onUnmounted(() => {
+  cleanup();
+});
 </script>
 
 <style scoped>

@@ -71,49 +71,32 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { onMounted, ref, onUnmounted } from "vue";
+import { useScrollAnimation } from "@/composables/useScrollAnimation";
 
 const introRef = ref(null);
 const naozumiRef = ref(null);
 const tommyRef = ref(null);
 const shewiRef = ref(null);
 
+const { fadeInUp, fadeInLeft, fadeInRight, cleanup } = useScrollAnimation();
+
 onMounted(() => {
   setupAnimations();
 });
 
-function setupAnimations() {
-  // Animate intro
-  gsap.from(introRef.value, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    scrollTrigger: {
-      trigger: introRef.value,
-      start: "top bottom-=10%",
-      toggleActions: "play none none none",
-    },
-  });
+onUnmounted(() => {
+  cleanup();
+});
 
-  // Animate friend cards
-  const friendCards = [naozumiRef.value, tommyRef.value, shewiRef.value];
-  friendCards.forEach((card, index) => {
-    gsap.from(card, {
-      opacity: 0,
-      x: index % 2 === 0 ? -50 : 50, // Alternate left and right
-      duration: 1,
-      scrollTrigger: {
-        trigger: card,
-        start: "top bottom-=10%",
-        toggleActions: "play none none none",
-      },
-      delay: index * 0.2, // Stagger effect
-    });
-  });
+function setupAnimations() {
+  // Animate intro - using composable
+  fadeInUp(introRef.value);
+
+  // Animate friend cards with alternating directions
+  fadeInLeft(naozumiRef.value, { delay: 0 });
+  fadeInRight(tommyRef.value, { delay: 0.2 });
+  fadeInLeft(shewiRef.value, { delay: 0.4 });
 }
 </script>
 

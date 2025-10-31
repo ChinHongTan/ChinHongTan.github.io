@@ -23,8 +23,9 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
-import { useIntersectionObserver, useRafFn } from "@vueuse/core";
+import { onMounted, ref } from "vue";
+import { useIntersectionObserver } from "@vueuse/core";
+import { useRotatingBorder } from "@/composables/useRotatingBorder";
 
 const sentences = [
   "Jeez, lolis are the best!",
@@ -38,25 +39,13 @@ const currentChar = ref(0);
 const isDeleting = ref(false);
 let typewriterElement = ref(null);
 
-const gradientPosition = ref(0);
 const elementRef = ref(null);
 
-const rotatingBorderStyle = computed(() => ({
-  background: `linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82,
-    #f79533
-  )`,
-  backgroundSize: "1000% 100%",
-  backgroundPosition: `${gradientPosition.value}% 50%`,
-}));
+// Use the composable for rotating border
+const { borderStyle: rotatingBorderStyle, pause, resume } = useRotatingBorder({
+  speed: 0.5,
+  autoStart: true,
+});
 
 function typeWriter() {
   const currentText = sentences[currentSentence.value];
@@ -93,13 +82,7 @@ function typeWriter() {
   setTimeout(() => typeWriter(), typingSpeed);
 }
 
-const { pause, resume } = useRafFn(
-  () => {
-    gradientPosition.value = gradientPosition.value + 0.5;
-  },
-  { immediate: true }
-);
-
+// Pause animation when not visible (performance optimization)
 useIntersectionObserver(elementRef, ([{ isIntersecting }]) => {
   if (isIntersecting) {
     resume();

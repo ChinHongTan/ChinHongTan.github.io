@@ -69,58 +69,36 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
+import { useScrollAnimation } from "@/composables/useScrollAnimation";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const aboutRef = ref(null);
 const rotatingBorderRef = ref(null);
+
+const { scaleIn, fadeInUp, staggerIn, cleanup } = useScrollAnimation();
 
 onMounted(() => {
   setupAnimations();
   animateRotatingBorder();
 });
 
+onUnmounted(() => {
+  cleanup();
+});
+
 function setupAnimations() {
-  // Image container animation
-  gsap.from(".about-image-container", {
-    opacity: 0,
-    scale: 0.8,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".about-image-container",
-      start: "top bottom-=10%",
-      toggleActions: "play none none none",
-    },
-  });
+  // Image container animation - using composable
+  scaleIn(".about-image-container");
 
-  // "About Me" text animation
-  gsap.from(".about-image p", {
-    opacity: 0,
+  // "About Me" text animation - using composable
+  fadeInUp(".about-image p");
+
+  // Content animations with stagger - using composable
+  staggerIn(".about-content > *", {
     y: 50,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".about-image p",
-      start: "top bottom-=10%",
-      toggleActions: "play none none none",
-    },
-  });
-
-  // Content animations
-  gsap.utils.toArray(".about-content > *").forEach((element, index) => {
-    gsap.from(element, {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      scrollTrigger: {
-        trigger: element,
-        start: "top bottom-=10%",
-        toggleActions: "play none none none",
-      },
-      delay: index * 0.1, // Stagger effect
-    });
+    duration: 0.8,
+    stagger: 0.1,
   });
 }
 
